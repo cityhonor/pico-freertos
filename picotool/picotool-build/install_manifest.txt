@@ -1,0 +1,5 @@
+/home/book/workspace/pi/pico/pico-freertos/picotool/picotool/picotool
+/home/book/workspace/pi/pico/pico-freertos/picotool/picotool/picotoolTargets.cmake
+/home/book/workspace/pi/pico/pico-freertos/picotool/picotool/picotoolTargets-release.cmake
+/home/book/workspace/pi/pico/pico-freertos/picotool/picotool/picotoolConfig.cmake
+/home/book/workspace/pi/pico/pico-freertos/picotool/picotool/picotoolConfigVersion.cmake
