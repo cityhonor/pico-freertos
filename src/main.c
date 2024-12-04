@@ -22,12 +22,16 @@
 /* DEFINES */
 #define TASK_DELAY_C0_MS    500
 #define TASK_DELAY_C1_MS    500
-#define DEBUG_AFFINITY      1
+#define TASK_DELAY_C2_MS    500
+#define TASK_DELAY_C3_MS    500
+#define DEBUG_AFFINITY      0
 
 /* PRIVATE FUNCTIONS :  headers */
 static void prvSetupHardware(void);
 static void prvTask_C0(void *pvParameters);
 static void prvTask_C1(void *pvParameters);
+static void prvTask_C2(void *pvParameters);
+static void prvTask_C3(void *pvParameters);
 
 /**/
 /* PUBLIC FUNCTIONS */
@@ -53,13 +57,16 @@ void vApplicationStackOverflowHook(TaskHandle_t pxTask, char *pcTaskName){
 
 /** Creates tasks and allocates to a particular PICO core : C0,C1 */
 int main(){
-    TaskHandle_t xHandle[2];
+    TaskHandle_t xHandle[4];
     
     prvSetupHardware();
 
     /* Create Tasks */
     xTaskCreate( prvTask_C0, "C0", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1 , &(xHandle[0]) );
     xTaskCreate( prvTask_C1, "C1", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1 , &(xHandle[1]) );
+    xTaskCreate( prvTask_C2, "C2", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 2 , &(xHandle[2]) );
+    xTaskCreate( prvTask_C3, "C3", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 3 , &(xHandle[3]) );
+
 
 #if DEBUG_AFFINITY == 1
     vTaskCoreAffinitySet(xHandle[0],(UBaseType_t)(1<<0));
@@ -100,5 +107,20 @@ static void prvTask_C1(void *pvParameters){
     while(1){
         printf("Task C1 on %d\n", get_core_num());
         vTaskDelay(TASK_DELAY_C1_MS);
+    }
+}
+
+static void prvTask_C2(void *pvParameters){
+    while(1){
+        printf("Task C2 on %d\n", get_core_num());
+        vTaskDelay(TASK_DELAY_C2_MS);
+    }
+}
+
+
+static void prvTask_C3(void *pvParameters){
+    while(1){
+        printf("Task C3 on %d\n", get_core_num());
+        vTaskDelay(TASK_DELAY_C3_MS);
     }
 }
