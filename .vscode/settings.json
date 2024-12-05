@@ -11,21 +11,39 @@
         "**/**.yaml":true,
         "**/**.yml":true,
         "build":true,
-        "freertos/examples":true,
-        "freertos/portable/[A-S]**":true,
-        "freertos/portable/[a-z]**":true,
-        "freertos/portable/Tasking":true,
-        "freertos/portable/WizC":true,
-        "freertos/portable/ThirdParty/[A-F]**":true,
-        "freertos/portable/ThirdParty/[H-Z]**":true,
-        "freertos/portable/ThirdParty/[a-z]**":true,
-        "freertos/portable/ThirdParty/GCC/[A-Q]**":true,
-        "freertos/portable/ThirdParty/GCC/[S-Z]**":true,
-        "freertos/portable/ThirdParty/GCC/RISC-V":true
+        "freertos":true,
+        // "freertos/examples":true,
+        // "freertos/portable/[A-S]**":true,
+        // "freertos/portable/[a-z]**":true,
+        // "freertos/portable/Tasking":true,
+        // "freertos/portable/WizC":true,
+        // "freertos/portable/ThirdParty/[A-F]**":true,
+        // "freertos/portable/ThirdParty/[H-Z]**":true,
+        // "freertos/portable/ThirdParty/[a-z]**":true,
+        // "freertos/portable/ThirdParty/GCC/[A-Q]**":true,
+        // "freertos/portable/ThirdParty/GCC/[S-Z]**":true,
+        // "freertos/portable/ThirdParty/GCC/RISC-V":true,
+
+
+        "FreeRTOS-Kernel/examples":true,
+        "FreeRTOS-Kernel/portable/[A-S]**":true,
+        "FreeRTOS-Kernel/portable/[a-z]**":true,
+        "FreeRTOS-Kernel/portable/Tasking":true,
+        "FreeRTOS-Kernel/portable/WizC":true,
+        "FreeRTOS-Kernel/portable/ThirdParty/[A-F]**":true,
+        "FreeRTOS-Kernel/portable/ThirdParty/[H-Z]**":true,
+        "FreeRTOS-Kernel/portable/ThirdParty/[a-z]**":true,
+        "FreeRTOS-Kernel/portable/ThirdParty/GCC/[A-Q]**":true,
+        "FreeRTOS-Kernel/portable/ThirdParty/GCC/[S-Z]**":true,
+        "FreeRTOS-Kernel/portable/ThirdParty/GCC/RISC-V":true,
+
+
     },
     "search.exclude": {
         "**/node_modules": true,
         "**/bower_components": true,
-        "**/*.code-search": true
+        "**/*.code-search": true,
+        "log": true,
+        "pico-sdk/lib/":true
     }
 }

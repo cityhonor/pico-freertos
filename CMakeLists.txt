@@ -5,11 +5,11 @@ set(ENV{PICOTOOL_FETCH_FROM_GIT_PATH} ${CMAKE_CURRENT_LIST_DIR}/picotool)
 
 
 # Pull in SDK (must be before project)
-include(pico_sdk_import.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/pico-sdk/external/pico_sdk_import.cmake)
 
 # Pull in FreeRTOS
-set(FREERTOS_KERNEL_PATH ${CMAKE_CURRENT_LIST_DIR}/freertos)
-include(FreeRTOS_Kernel_import.cmake)
+set(FREERTOS_KERNEL_PATH ${CMAKE_CURRENT_LIST_DIR}/FreeRTOS-Kernel)
+include(${FREERTOS_KERNEL_PATH}/portable/ThirdParty/GCC/RP2040/FreeRTOS_Kernel_import.cmake)
 
 # Project name
 project(pico-freertos)

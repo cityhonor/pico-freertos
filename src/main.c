@@ -26,12 +26,16 @@
 #define TASK_DELAY_C3_MS    500
 #define DEBUG_AFFINITY      0
 
+#define CONFIG_TASK1_PRI    1
+#define CONFIG_TASK2_PRI    2
+#define CONFIG_TASK3_PRI    3
+
+
 /* PRIVATE FUNCTIONS :  headers */
 static void prvSetupHardware(void);
 static void prvTask_C0(void *pvParameters);
 static void prvTask_C1(void *pvParameters);
 static void prvTask_C2(void *pvParameters);
-static void prvTask_C3(void *pvParameters);
 
 /**/
 /* PUBLIC FUNCTIONS */
@@ -62,10 +66,9 @@ int main(){
     prvSetupHardware();
 
     /* Create Tasks */
-    xTaskCreate( prvTask_C0, "C0", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1 , &(xHandle[0]) );
-    xTaskCreate( prvTask_C1, "C1", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 1 , &(xHandle[1]) );
-    xTaskCreate( prvTask_C2, "C2", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 2 , &(xHandle[2]) );
-    xTaskCreate( prvTask_C3, "C3", configMINIMAL_STACK_SIZE, NULL, tskIDLE_PRIORITY + 3 , &(xHandle[3]) );
+    xTaskCreate( prvTask_C0, "C0", configMINIMAL_STACK_SIZE, NULL, CONFIG_TASK1_PRI , &(xHandle[0]) );
+    xTaskCreate( prvTask_C1, "C1", configMINIMAL_STACK_SIZE, NULL, CONFIG_TASK2_PRI , &(xHandle[1]) );
+    xTaskCreate( prvTask_C2, "C2", configMINIMAL_STACK_SIZE, NULL, CONFIG_TASK3_PRI , &(xHandle[2]) );
 
 
 #if DEBUG_AFFINITY == 1
@@ -74,7 +77,7 @@ int main(){
 #endif
 
     /* start scheduler */
-    printf("starting scheduler on Core : %d",get_core_num());
+    printf("starting scheduler on Core : %d\r\n",get_core_num());
     vTaskStartScheduler();
 
 }
@@ -93,34 +96,33 @@ static void prvSetupHardware(void){
 
 /** run something on C0 : print to console and blink an Led */
 static void prvTask_C0(void *pvParameters){
-    
+    TickType_t Tick;
     while(1){
-        printf("Task C0 on %d\n", get_core_num());
+        Tick = xTaskGetTickCount();
+        printf("Task C0 on %d, Pri = %d, Tick = %lu\n", get_core_num(), CONFIG_TASK1_PRI, Tick);
         gpio_put(PICO_DEFAULT_LED_PIN, 1);
-        vTaskDelay(TASK_DELAY_C0_MS);
-        gpio_put(PICO_DEFAULT_LED_PIN, 0);
         vTaskDelay(TASK_DELAY_C0_MS);
     }
 }
 /** run something on C1 : print to console */
 static void prvTask_C1(void *pvParameters){
+    TickType_t Tick;
     while(1){
-        printf("Task C1 on %d\n", get_core_num());
+        Tick = xTaskGetTickCount();
+        printf("Task C1 on %d, Pri = %d, Tick = %lu\n", get_core_num(), CONFIG_TASK2_PRI, Tick);
         vTaskDelay(TASK_DELAY_C1_MS);
     }
 }
 
 static void prvTask_C2(void *pvParameters){
+    TickType_t Tick;
     while(1){
-        printf("Task C2 on %d\n", get_core_num());
+        Tick = xTaskGetTickCount();
+        printf("Task C2 on %d, Pri = %d, Tick = %lu\n", get_core_num(), CONFIG_TASK3_PRI, Tick);
+        // for(int i = 0; i < 1000000; i++)
+        // {
+            
+        // }
         vTaskDelay(TASK_DELAY_C2_MS);
-    }
-}
-
-
-static void prvTask_C3(void *pvParameters){
-    while(1){
-        printf("Task C3 on %d\n", get_core_num());
-        vTaskDelay(TASK_DELAY_C3_MS);
     }
 }
